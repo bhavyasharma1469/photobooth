@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://photobooth-orpin-rho.vercel.app/sitemap.xml
