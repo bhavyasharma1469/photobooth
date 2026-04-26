@@ -5,7 +5,7 @@ const state = {
   timer: 5,
   border: 'white',
   sticker: 'none',
-  caption: 'photobooth',
+  caption: 'Click & Smile',
   photos: [],
   stream: null,
   capturing: false,
@@ -639,7 +639,7 @@ function drawCaption(ctx, w, h, borderDef) {
   const isDark = isColorDark(baseColor);
   ctx.fillStyle = isDark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.5)';
 
-  const caption = state.caption || 'photobooth';
+  const caption = state.caption || 'Click & Smile';
   const now = new Date();
   const dateStr = now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
   ctx.fillText(`${caption}  ·  ${dateStr}`, w / 2, h - 20);
@@ -688,7 +688,7 @@ function loadImage(src) {
 function downloadStrip() {
   const canvas = document.getElementById('result-canvas');
   const link = document.createElement('a');
-  link.download = `photobooth-${Date.now()}.png`;
+  link.download = `click-and-smile-${Date.now()}.png`;
   link.href = canvas.toDataURL('image/png');
   link.click();
 }
@@ -698,13 +698,13 @@ async function shareStrip() {
 
   try {
     const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
-    const file = new File([blob], 'photobooth.png', { type: 'image/png' });
+    const file = new File([blob], 'click-and-smile.png', { type: 'image/png' });
 
     if (navigator.share && navigator.canShare({ files: [file] })) {
       await navigator.share({
         files: [file],
         title: 'Photobooth',
-        text: 'Check out my photobooth strip!',
+        text: 'Check out my Click & Smile photo strip!',
       });
     } else {
       await navigator.clipboard.write([
@@ -741,7 +741,7 @@ function printStrip() {
   const printWindow = window.open('', '_blank');
   printWindow.document.write(`
     <html>
-    <head><title>Print Photobooth Strip</title></head>
+    <head><title>Print - Click & Smile</title></head>
     <body style="margin:0;display:flex;justify-content:center;align-items:center;min-height:100vh;background:#fff;">
       <img src="${dataUrl}" style="max-width:100%;max-height:100vh;" onload="window.print();window.close();">
     </body>

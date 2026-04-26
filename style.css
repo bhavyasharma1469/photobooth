@@ -48,7 +48,11 @@ body[data-theme="light"] {
   --scrollbar: #e8d5cc;
 }
 
-html, body {
+html {
+  height: 100%;
+}
+
+body {
   height: 100%;
   font-family: 'Inter', sans-serif;
   background: var(--bg);
@@ -68,6 +72,19 @@ html, body {
 
 .page.active {
   display: flex;
+}
+
+@media (max-width: 900px) {
+  body {
+    overflow: auto;
+    overflow-x: hidden;
+  }
+
+  .page {
+    position: relative;
+    min-height: 100%;
+    height: auto;
+  }
 }
 
 /* ===== THEME TOGGLE ===== */
@@ -145,13 +162,13 @@ html, body {
   z-index: 1;
 }
 
-.landing-tagline {
-  font-size: 0.85rem;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 1rem;
-  font-weight: 300;
+.landing-logo {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  margin-bottom: 1.5rem;
+  border-radius: 50%;
+  filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.15));
 }
 
 .landing-title {
@@ -403,6 +420,27 @@ body[data-theme="light"] .filter-btn.active,
 body[data-theme="light"] .timer-btn.active,
 body[data-theme="light"] .sticker-btn.active {
   background: rgba(212, 132, 154, 0.15);
+}
+
+.setting-sublabel {
+  display: block;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-secondary);
+  opacity: 0.6;
+  margin-bottom: 6px;
+  margin-top: 10px;
+  font-weight: 400;
+}
+
+.setting-sublabel:first-of-type {
+  margin-top: 0;
+}
+
+/* On desktop, hide the combined "Border" label and show sublabels as section headers */
+.border-group-all > .setting-label {
+  display: none;
 }
 
 /* Border Buttons */
@@ -910,8 +948,22 @@ body[data-theme="light"] .btn-capture:hover {
     margin-bottom: 12px;
   }
 
+  #booth, #result {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+
   .booth-body {
     flex-direction: column;
+    overflow: visible;
+    flex: none;
+  }
+
+  .settings-panel {
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 
   .preview-panel {
@@ -923,6 +975,7 @@ body[data-theme="light"] .btn-capture:hover {
     gap: 12px;
     overflow-x: auto;
     overflow-y: hidden;
+    flex-shrink: 0;
   }
 
   .preview-strip {
@@ -940,28 +993,105 @@ body[data-theme="light"] .btn-capture:hover {
     margin-right: 8px;
   }
 
+  .camera-area {
+    flex: none;
+    padding: 16px;
+  }
+
   .camera-container {
-    max-width: 400px;
+    max-width: 100%;
   }
 
   .result-body {
     flex-direction: column;
+    overflow: visible;
+    flex: none;
   }
 
   .result-customize {
     width: 100%;
     border-right: none;
     border-bottom: 1px solid var(--border);
-    padding: 12px 16px;
+    padding: 16px;
     display: flex;
-    gap: 20px;
-    overflow-x: auto;
-    overflow-y: hidden;
+    flex-direction: column;
+    gap: 0;
+    overflow: visible;
+    flex-shrink: 0;
   }
 
   .result-customize .setting-group {
-    margin-bottom: 0;
+    margin-bottom: 14px;
     flex-shrink: 0;
+  }
+
+  .result-customize .setting-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .result-customize .setting-label {
+    margin-bottom: 8px;
+  }
+
+  .result-customize .border-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .result-customize .sticker-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .result-customize .sticker-btn {
+    font-size: 0.7rem;
+    padding: 5px 10px;
+  }
+
+  .result-customize .border-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .border-group-all > .setting-label {
+    display: block;
+  }
+
+  .result-customize .setting-sublabel {
+    font-size: 0.6rem;
+    margin-top: 8px;
+    margin-bottom: 4px;
+    opacity: 0.5;
+  }
+
+  .result-customize .caption-field input {
+    font-size: 0.75rem;
+  }
+
+  .result-main {
+    flex: none;
+    padding: 16px;
+    padding-bottom: 40px;
+  }
+
+  .result-strip-container {
+    max-height: none;
+  }
+
+  #result-canvas {
+    max-height: none;
+    max-width: 100%;
+  }
+
+  .info-page {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .info-content {
+    overflow: visible;
   }
 }
 
@@ -970,18 +1100,28 @@ body[data-theme="light"] .btn-capture:hover {
     font-size: 2.5rem;
   }
 
-  .camera-container {
-    max-width: 100%;
+  .booth-header {
+    padding: 12px 16px;
   }
 
   .result-actions {
     flex-direction: column;
     width: 100%;
-    padding: 0 24px;
+    padding: 0;
+    gap: 10px;
   }
 
   .result-actions .btn-primary,
   .result-actions .btn-secondary {
     width: 100%;
+    padding: 12px 24px;
+  }
+
+  .settings-panel {
+    padding: 10px 12px;
+  }
+
+  .setting-group {
+    margin-bottom: 16px;
   }
 }

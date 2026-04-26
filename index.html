@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Photobooth | Free Online Photobooth</title>
+  <title>Click & Smile | Free Online Photobooth</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=Sacramento&display=swap" rel="stylesheet">
@@ -19,8 +21,8 @@
   <section id="landing" class="page active">
     <div class="landing-bg"></div>
     <div class="landing-content">
-      <p class="landing-tagline">Est. 2025</p>
-      <h1 class="landing-title">photobooth</h1>
+      <img src="assets/logo.png" alt="Click & Smile Photobooth" class="landing-logo">
+      <h1 class="landing-title">Click & Smile</h1>
       <p class="landing-subtitle">Capture the moment, cherish the magic, relive the love</p>
       <button id="btn-start" class="btn-primary" onclick="goToBooth()">START</button>
     </div>
@@ -35,7 +37,7 @@
   <section id="booth" class="page">
     <header class="booth-header">
       <button class="btn-back" onclick="goToLanding()">&#8592; Back</button>
-      <h2 class="booth-title" onclick="goToLanding()" style="cursor:pointer;">photobooth</h2>
+      <h2 class="booth-title" onclick="goToLanding()" style="cursor:pointer;">Click & Smile</h2>
       <div></div>
     </header>
 
@@ -113,13 +115,14 @@
   <section id="result" class="page">
     <header class="booth-header">
       <button class="btn-back" onclick="goToBooth()">&#8592; New Session</button>
-      <h2 class="booth-title" onclick="goToLanding()" style="cursor:pointer;">photobooth</h2>
+      <h2 class="booth-title" onclick="goToLanding()" style="cursor:pointer;">Click & Smile</h2>
       <div></div>
     </header>
     <div class="result-body">
       <aside class="result-customize">
-        <div class="setting-group">
-          <label class="setting-label">Solid</label>
+        <div class="setting-group border-group-all">
+          <label class="setting-label">Border</label>
+          <label class="setting-sublabel">Solid</label>
           <div class="border-options" id="border-options">
             <button class="border-btn active" data-border="white" title="White"><span class="border-swatch" style="background:#ffffff"></span></button>
             <button class="border-btn" data-border="black" title="Black"><span class="border-swatch" style="background:#000000"></span></button>
@@ -128,9 +131,7 @@
             <button class="border-btn" data-border="lavender" title="Lavender"><span class="border-swatch" style="background:#e6e0ff"></span></button>
             <button class="border-btn" data-border="mint" title="Mint"><span class="border-swatch" style="background:#d4edda"></span></button>
           </div>
-        </div>
-        <div class="setting-group">
-          <label class="setting-label">Gradient</label>
+          <label class="setting-sublabel">Gradient</label>
           <div class="border-options" id="border-options-gradient">
             <button class="border-btn" data-border="sunset" title="Sunset"><span class="border-swatch" style="background:linear-gradient(135deg,#ff6b6b,#ffd700)"></span></button>
             <button class="border-btn" data-border="ocean" title="Ocean"><span class="border-swatch" style="background:linear-gradient(135deg,#667eea,#764ba2)"></span></button>
@@ -139,9 +140,7 @@
             <button class="border-btn" data-border="forest" title="Forest"><span class="border-swatch" style="background:linear-gradient(135deg,#134e5e,#71b280)"></span></button>
             <button class="border-btn" data-border="golden" title="Golden"><span class="border-swatch" style="background:linear-gradient(135deg,#f2c94c,#f2994a)"></span></button>
           </div>
-        </div>
-        <div class="setting-group">
-          <label class="setting-label">Pattern</label>
+          <label class="setting-sublabel">Pattern</label>
           <div class="border-options" id="border-options-pattern">
             <button class="border-btn" data-border="hearts" title="Hearts"><span class="border-swatch pattern-swatch">♥</span></button>
             <button class="border-btn" data-border="polkadots" title="Polka Dots"><span class="border-swatch pattern-swatch">●</span></button>
@@ -166,7 +165,7 @@
         <div class="setting-group">
           <label class="setting-label">Caption</label>
           <div class="caption-field">
-            <input type="text" id="caption-input" placeholder="photobooth" maxlength="30">
+            <input type="text" id="caption-input" placeholder="Click & Smile" maxlength="30">
             <span class="caption-counter" id="caption-counter">10/30</span>
           </div>
         </div>
@@ -193,7 +192,7 @@
         <h1 class="info-title">About</h1>
         <div class="info-body">
           <p>
-            <strong>photobooth</strong> is a free, browser-based photo booth that lets you
+            <strong>Click & Smile</strong> is a free, browser-based photo booth that lets you
             capture fun photo strips and grids right from your webcam — no app downloads,
             no sign-ups, no servers involved.
           </p>
@@ -231,7 +230,7 @@
 
           <h3>Overview</h3>
           <p>
-            Your privacy is important to us. This photobooth application is designed with a
+            Your privacy is important to us. Click & Smile is designed with a
             privacy-first approach — we do not collect, store, or transmit any personal data
             or photos.
           </p>
