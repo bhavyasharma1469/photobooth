@@ -703,8 +703,8 @@ async function shareStrip() {
     if (navigator.share && navigator.canShare({ files: [file] })) {
       await navigator.share({
         files: [file],
-        title: 'Photobooth',
-        text: 'Check out my Click & Smile photo strip!',
+        title: 'Click & Smile Photobooth',
+        text: 'Check out my Click & Smile photo strip!\nhttps://photobooth-orpin-rho.vercel.app',
       });
     } else {
       await navigator.clipboard.write([
