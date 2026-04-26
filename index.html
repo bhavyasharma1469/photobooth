@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photobooth | Free Online Photobooth</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=Sacramento&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Switch theme">
+    <span class="theme-icon" id="theme-icon">☀️</span>
+  </button>
+
+  <!-- ========== LANDING PAGE ========== -->
+  <section id="landing" class="page active">
+    <div class="landing-bg"></div>
+    <div class="landing-content">
+      <p class="landing-tagline">Est. 2025</p>
+      <h1 class="landing-title">photobooth</h1>
+      <p class="landing-subtitle">Capture the moment, cherish the magic, relive the love</p>
+      <button id="btn-start" class="btn-primary" onclick="goToBooth()">START</button>
+    </div>
+    <footer class="landing-footer">
+      <a href="#" onclick="showPage('about'); return false;">About</a>
+      <span class="footer-dot">·</span>
+      <a href="#" onclick="showPage('privacy'); return false;">Privacy Policy</a>
+    </footer>
+  </section>
+
+  <!-- ========== BOOTH PAGE ========== -->
+  <section id="booth" class="page">
+    <header class="booth-header">
+      <button class="btn-back" onclick="goToLanding()">&#8592; Back</button>
+      <h2 class="booth-title" onclick="goToLanding()" style="cursor:pointer;">photobooth</h2>
+      <div></div>
+    </header>
+
+    <div class="booth-body">
+      <!-- Left: Settings Panel -->
+      <aside class="settings-panel">
+        <div class="setting-group">
+          <label class="setting-label">Layout</label>
+          <div class="layout-options" id="layout-options">
+            <button class="layout-btn active" data-layout="classic-4" title="4 photos vertical strip">
+              <div class="layout-preview strip-4"><span></span><span></span><span></span><span></span></div>
+            </button>
+            <button class="layout-btn" data-layout="classic-3" title="3 photos vertical strip">
+              <div class="layout-preview strip-3"><span></span><span></span><span></span></div>
+            </button>
+            <button class="layout-btn" data-layout="grid-4" title="2x2 grid">
+              <div class="layout-preview grid-2x2"><span></span><span></span><span></span><span></span></div>
+            </button>
+            <button class="layout-btn" data-layout="single" title="Single photo">
+              <div class="layout-preview single-1"><span></span></div>
+            </button>
+          </div>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label">Filter</label>
+          <div class="filter-options" id="filter-options">
+            <button class="filter-btn active" data-filter="none">None</button>
+            <button class="filter-btn" data-filter="grayscale">B&W</button>
+            <button class="filter-btn" data-filter="sepia">Sepia</button>
+            <button class="filter-btn" data-filter="warm">Warm</button>
+            <button class="filter-btn" data-filter="cool">Cool</button>
+            <button class="filter-btn" data-filter="vintage">Vintage</button>
+          </div>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label">Timer (seconds)</label>
+          <div class="timer-options" id="timer-options">
+            <button class="timer-btn" data-timer="3">3s</button>
+            <button class="timer-btn active" data-timer="5">5s</button>
+            <button class="timer-btn" data-timer="10">10s</button>
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- Center: Camera View -->
+      <div class="camera-area">
+        <div class="camera-container" id="camera-container">
+          <video id="camera-feed" autoplay playsinline muted></video>
+          <div class="countdown-overlay" id="countdown-overlay"></div>
+          <div class="flash-overlay" id="flash-overlay"></div>
+          <button class="btn-flip-camera" id="btn-flip-camera" onclick="flipCamera()" title="Switch camera">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 19H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/><path d="M13 5h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-5"/><polyline points="16 3 19 6 16 9"/><polyline points="8 21 5 18 8 15"/></svg>
+          </button>
+        </div>
+        <div class="camera-controls">
+          <button id="btn-capture" class="btn-capture" onclick="startCapture()">
+            <span class="capture-icon"></span>
+          </button>
+        </div>
+        <p class="photo-counter" id="photo-counter"></p>
+      </div>
+
+      <!-- Right: Preview -->
+      <aside class="preview-panel" id="preview-panel">
+        <h3 class="preview-title">Preview</h3>
+        <div class="preview-strip" id="preview-strip"></div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ========== RESULT PAGE ========== -->
+  <section id="result" class="page">
+    <header class="booth-header">
+      <button class="btn-back" onclick="goToBooth()">&#8592; New Session</button>
+      <h2 class="booth-title" onclick="goToLanding()" style="cursor:pointer;">photobooth</h2>
+      <div></div>
+    </header>
+    <div class="result-body">
+      <aside class="result-customize">
+        <div class="setting-group">
+          <label class="setting-label">Solid</label>
+          <div class="border-options" id="border-options">
+            <button class="border-btn active" data-border="white" title="White"><span class="border-swatch" style="background:#ffffff"></span></button>
+            <button class="border-btn" data-border="black" title="Black"><span class="border-swatch" style="background:#000000"></span></button>
+            <button class="border-btn" data-border="cream" title="Cream"><span class="border-swatch" style="background:#f5e6d3"></span></button>
+            <button class="border-btn" data-border="blush" title="Blush"><span class="border-swatch" style="background:#ffc0cb"></span></button>
+            <button class="border-btn" data-border="lavender" title="Lavender"><span class="border-swatch" style="background:#e6e0ff"></span></button>
+            <button class="border-btn" data-border="mint" title="Mint"><span class="border-swatch" style="background:#d4edda"></span></button>
+          </div>
+        </div>
+        <div class="setting-group">
+          <label class="setting-label">Gradient</label>
+          <div class="border-options" id="border-options-gradient">
+            <button class="border-btn" data-border="sunset" title="Sunset"><span class="border-swatch" style="background:linear-gradient(135deg,#ff6b6b,#ffd700)"></span></button>
+            <button class="border-btn" data-border="ocean" title="Ocean"><span class="border-swatch" style="background:linear-gradient(135deg,#667eea,#764ba2)"></span></button>
+            <button class="border-btn" data-border="aurora" title="Aurora"><span class="border-swatch" style="background:linear-gradient(135deg,#a8edea,#fed6e3)"></span></button>
+            <button class="border-btn" data-border="candy" title="Candy"><span class="border-swatch" style="background:linear-gradient(135deg,#f093fb,#f5576c)"></span></button>
+            <button class="border-btn" data-border="forest" title="Forest"><span class="border-swatch" style="background:linear-gradient(135deg,#134e5e,#71b280)"></span></button>
+            <button class="border-btn" data-border="golden" title="Golden"><span class="border-swatch" style="background:linear-gradient(135deg,#f2c94c,#f2994a)"></span></button>
+          </div>
+        </div>
+        <div class="setting-group">
+          <label class="setting-label">Pattern</label>
+          <div class="border-options" id="border-options-pattern">
+            <button class="border-btn" data-border="hearts" title="Hearts"><span class="border-swatch pattern-swatch">♥</span></button>
+            <button class="border-btn" data-border="polkadots" title="Polka Dots"><span class="border-swatch pattern-swatch">●</span></button>
+            <button class="border-btn" data-border="stripes" title="Stripes"><span class="border-swatch pattern-swatch">╲</span></button>
+            <button class="border-btn" data-border="confetti" title="Confetti"><span class="border-swatch pattern-swatch">🎊</span></button>
+            <button class="border-btn" data-border="floral" title="Floral"><span class="border-swatch pattern-swatch">✿</span></button>
+            <button class="border-btn" data-border="stars" title="Stars"><span class="border-swatch pattern-swatch">★</span></button>
+          </div>
+        </div>
+        <div class="setting-group">
+          <label class="setting-label">Stickers</label>
+          <div class="sticker-options" id="sticker-options">
+            <button class="sticker-btn active" data-sticker="none">None</button>
+            <button class="sticker-btn" data-sticker="love">♡ Love</button>
+            <button class="sticker-btn" data-sticker="sparkle">✦ Sparkle</button>
+            <button class="sticker-btn" data-sticker="butterfly">🦋 Butterfly</button>
+            <button class="sticker-btn" data-sticker="daisy">✿ Daisy</button>
+            <button class="sticker-btn" data-sticker="celestial">☽ Celestial</button>
+            <button class="sticker-btn" data-sticker="ribbon">🎀 Ribbon</button>
+          </div>
+        </div>
+        <div class="setting-group">
+          <label class="setting-label">Caption</label>
+          <div class="caption-field">
+            <input type="text" id="caption-input" placeholder="photobooth" maxlength="30">
+            <span class="caption-counter" id="caption-counter">10/30</span>
+          </div>
+        </div>
+      </aside>
+      <div class="result-main">
+        <div class="result-strip-container">
+          <canvas id="result-canvas"></canvas>
+        </div>
+        <div class="result-actions">
+          <button class="btn-primary" onclick="downloadStrip()">Download</button>
+          <button class="btn-secondary" onclick="shareStrip()">Share</button>
+          <button class="btn-secondary" onclick="printStrip()">Print</button>
+          <button class="btn-secondary" onclick="retakePhotos()">Retake</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT PAGE ========== -->
+  <section id="about" class="page">
+    <div class="info-page">
+      <button class="btn-back info-back" onclick="showPage('landing')">&#8592; Back</button>
+      <div class="info-content">
+        <h1 class="info-title">About</h1>
+        <div class="info-body">
+          <p>
+            <strong>photobooth</strong> is a free, browser-based photo booth that lets you
+            capture fun photo strips and grids right from your webcam — no app downloads,
+            no sign-ups, no servers involved.
+          </p>
+          <h3>How it works</h3>
+          <p>
+            Choose a layout, pick a filter, and hit the capture button. The countdown timer
+            gives you a moment to pose, then we snap each shot automatically. When you're done,
+            customize your strip with border colors and stickers, then download the final image
+            straight to your device.
+          </p>
+          <h3>100% Private</h3>
+          <p>
+            Everything happens entirely in your browser. Your photos are never uploaded to any
+            server — they exist only in your browser's memory and are gone the moment you close
+            the tab or start a new session.
+          </p>
+          <h3>Technology</h3>
+          <p>
+            Built with plain HTML, CSS, and JavaScript. No frameworks, no tracking scripts,
+            no cookies. Just open and snap.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PRIVACY POLICY PAGE ========== -->
+  <section id="privacy" class="page">
+    <div class="info-page">
+      <button class="btn-back info-back" onclick="showPage('landing')">&#8592; Back</button>
+      <div class="info-content">
+        <h1 class="info-title">Privacy Policy</h1>
+        <div class="info-body">
+          <p><em>Last updated: April 2025</em></p>
+
+          <h3>Overview</h3>
+          <p>
+            Your privacy is important to us. This photobooth application is designed with a
+            privacy-first approach — we do not collect, store, or transmit any personal data
+            or photos.
+          </p>
+
+          <h3>Data Collection</h3>
+          <p>
+            <strong>We collect nothing.</strong> Specifically:
+          </p>
+          <ul>
+            <li>No photos are uploaded or stored on any server</li>
+            <li>No personal information is collected</li>
+            <li>No cookies are used</li>
+            <li>No tracking cookies or fingerprinting of any kind</li>
+            <li>No personal data is sent to any third party</li>
+          </ul>
+
+          <h3>Camera Access</h3>
+          <p>
+            The application requests access to your device's camera solely to display a live
+            preview and capture photos. The camera feed is processed entirely within your
+            browser and is never transmitted externally. Camera access can be revoked at any
+            time through your browser settings.
+          </p>
+
+          <h3>Photo Storage</h3>
+          <p>
+            All captured photos exist only in your browser's temporary memory (RAM). They are
+            automatically discarded when you:
+          </p>
+          <ul>
+            <li>Close the browser tab</li>
+            <li>Navigate away from the page</li>
+            <li>Start a new photo session</li>
+          </ul>
+          <p>
+            The only way a photo is saved permanently is when you explicitly choose to download
+            it, at which point it is saved directly to your device by your browser — we have no
+            involvement in that process.
+          </p>
+
+          <h3>Third-Party Services</h3>
+          <p>
+            This application uses two external services:
+          </p>
+          <ul>
+            <li><strong>Google Fonts</strong> — to load typefaces. Google's privacy policy applies.</li>
+            <li><strong>GoatCounter</strong> — a privacy-friendly, open-source analytics tool used
+            solely to count page visits. It uses no cookies, collects no personal data, does not
+            track individual users, and is fully GDPR-compliant. You can read more at
+            <a href="https://www.goatcounter.com/help/privacy" target="_blank" style="color:var(--accent);">goatcounter.com/help/privacy</a>.</li>
+          </ul>
+
+          <h3>Changes to This Policy</h3>
+          <p>
+            If this policy is updated, the changes will be reflected on this page with an updated
+            date. Since we collect no data, changes are unlikely.
+          </p>
+
+          <h3>Contact</h3>
+          <p>
+            If you have questions about this privacy policy, feel free to reach out via the
+            project's repository.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <canvas id="hidden-canvas" style="display:none"></canvas>
+
+  <script src="app.js"></script>
+
+  <!-- GoatCounter — privacy-friendly analytics (no cookies, no personal data) -->
+  <!-- Replace YOURCODE with your GoatCounter site code from https://www.goatcounter.com -->
+  <script data-goatcounter="https://bhavsss.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
